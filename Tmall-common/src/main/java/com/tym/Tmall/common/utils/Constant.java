@@ -8,9 +8,9 @@
 
 package com.tym.Tmall.common.utils;
 
-import io.renren.common.validator.group.AliyunGroup;
-import io.renren.common.validator.group.QcloudGroup;
-import io.renren.common.validator.group.QiniuGroup;
+import com.tym.Tmall.common.validator.group.AliyunGroup;
+import com.tym.Tmall.common.validator.group.QcloudGroup;
+import com.tym.Tmall.common.validator.group.QiniuGroup;
 
 import java.util.Optional;
 import java.util.stream.Stream;

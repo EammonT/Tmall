@@ -12,6 +12,7 @@
         <module>renren-fast</module>
         <module>renren-generator</module>
         <module>Tmall-common</module>
+        <module>Tmall-gateway</module>
     </modules>
 
     <parent>

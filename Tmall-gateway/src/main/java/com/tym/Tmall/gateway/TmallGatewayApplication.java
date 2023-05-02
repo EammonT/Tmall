@@ -1,16 +1,14 @@
-package com.tym.Tmall.member;
+package com.tym.Tmall.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = "com.tym.Tmall.member.feign")
-public class TmallMemberApplication {
+public class TmallGatewayApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TmallMemberApplication.class,args);
+        SpringApplication.run(TmallGatewayApplication.class,args);
     }
 }

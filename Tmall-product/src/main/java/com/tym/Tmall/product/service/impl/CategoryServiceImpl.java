@@ -10,7 +10,9 @@ import com.tym.Tmall.product.entity.CategoryEntity;
 import com.tym.Tmall.product.service.CategoryService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Service("categoryService")
@@ -24,6 +26,36 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<CategoryEntity> listWithTree() {
+        List<CategoryEntity> entities = baseMapper.selectList(null);
+        //一级分类
+        List<CategoryEntity> level1Menus = entities.stream().filter(categoryEntity -> {
+            return categoryEntity.getParentCid() == 0;
+        }).map( (menu) -> {
+            menu.setChildren(getChildrens(menu,entities));
+            return menu;
+        }).sorted( (menu1,menu2) -> {
+            return (menu1.getSort()==null?0:menu1.getSort()) - (menu2.getSort()==null?0:menu2.getSort());
+        }).collect(Collectors.toList());
+
+
+        return level1Menus;
+    }
+
+    //查找所有菜单的子菜单
+    private List<CategoryEntity> getChildrens(CategoryEntity root,List<CategoryEntity> all){
+        List<CategoryEntity> children = all.stream().filter(categoryEntity -> {
+            return categoryEntity.getParentCid() == root.getCatId();
+        }).map( categoryEntity -> {
+            categoryEntity.setChildren(getChildrens(categoryEntity,all));
+            return categoryEntity;
+        }).sorted((menu1,menu2) -> {
+            return (menu1.getSort()==null?0:menu1.getSort()) - (menu2.getSort()==null?0:menu2.getSort());
+        }).collect(Collectors.toList());
+        return children;
     }
 
 }

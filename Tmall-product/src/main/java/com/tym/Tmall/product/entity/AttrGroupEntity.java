@@ -1,7 +1,10 @@
 package com.tym.Tmall.product.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -22,6 +25,7 @@ public class AttrGroupEntity implements Serializable {
 	 * 分组id
 	 */
 	@TableId
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long attrGroupId;
 	/**
 	 * 组名
@@ -44,4 +48,6 @@ public class AttrGroupEntity implements Serializable {
 	 */
 	private Long catelogId;
 
+	@TableField(exist = false)
+	private Long[] catelogPath;
 }

@@ -2,11 +2,12 @@ package com.tym.Tmall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.math.BigDecimal;
-import java.io.Serializable;
-import java.util.Date;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * sku信息
@@ -24,10 +25,12 @@ public class SkuInfoEntity implements Serializable {
 	 * skuId
 	 */
 	@TableId
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long skuId;
 	/**
 	 * spuId
 	 */
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long spuId;
 	/**
 	 * sku名称
@@ -40,10 +43,12 @@ public class SkuInfoEntity implements Serializable {
 	/**
 	 * 所属分类id
 	 */
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long catalogId;
 	/**
 	 * 品牌id
 	 */
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long brandId;
 	/**
 	 * 默认图片
@@ -64,6 +69,7 @@ public class SkuInfoEntity implements Serializable {
 	/**
 	 * 销量
 	 */
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long saleCount;
 
 }

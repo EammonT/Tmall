@@ -2,10 +2,11 @@ package com.tym.Tmall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
-import lombok.Data;
 
 /**
  * 品牌分类关联
@@ -23,14 +24,17 @@ public class CategoryBrandRelationEntity implements Serializable {
 	 * 
 	 */
 	@TableId
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long id;
 	/**
 	 * 品牌id
 	 */
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long brandId;
 	/**
 	 * 分类id
 	 */
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long catelogId;
 	/**
 	 * 

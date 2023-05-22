@@ -13,6 +13,8 @@
         <module>renren-generator</module>
         <module>Tmall-common</module>
         <module>Tmall-gateway</module>
+        <module>Tmall-auth</module>
+        <module>Tmall-cart</module>
     </modules>
 
     <parent>

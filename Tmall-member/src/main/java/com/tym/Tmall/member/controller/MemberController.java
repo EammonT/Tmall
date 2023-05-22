@@ -1,11 +1,20 @@
 package com.tym.Tmall.member.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.tym.Tmall.common.constant.AuthServerConstant;
+import com.tym.Tmall.common.exception.BizCodeEnume;
 import com.tym.Tmall.common.utils.PageUtils;
 import com.tym.Tmall.common.utils.R;
 import com.tym.Tmall.member.entity.MemberEntity;
+import com.tym.Tmall.member.exception.EmailException;
+import com.tym.Tmall.member.exception.PhoneException;
+import com.tym.Tmall.member.exception.UsernameException;
 import com.tym.Tmall.member.feign.CouponFeignService;
 import com.tym.Tmall.member.service.MemberService;
+import com.tym.Tmall.member.vo.UserLoginVO;
+import com.tym.Tmall.member.vo.UserRegVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -28,12 +37,45 @@ public class MemberController {
 
     @Autowired
     CouponFeignService couponFeignService;
+
+    @Autowired
+    StringRedisTemplate redisTemplate;
     @RequestMapping("/coupons")
     public R test(){
         MemberEntity memberEntity = new MemberEntity();
         memberEntity.setNickname("张三");
         R membercoupons = couponFeignService.membercoupons();
         return R.ok().put("member",memberEntity).put("coupons",membercoupons.get("coupons"));
+    }
+
+    @PostMapping("/login")
+    public R login(@RequestBody UserLoginVO userLoginVO){
+        MemberEntity memberEntity = memberService.login(userLoginVO);
+        if (memberEntity!=null){
+            String s = JSON.toJSONString(memberEntity);
+            redisTemplate.opsForValue().set(AuthServerConstant.LOGIN_USER,s);
+            return R.ok();
+        }
+        return R.error(BizCodeEnume.LOGINACCT_PASS_INVALID_EXCEPTION.getCode(), BizCodeEnume.LOGINACCT_PASS_INVALID_EXCEPTION.getMsg());
+    }
+
+    /**
+     * 注册
+     * @param userRegVO
+     * @return
+     */
+    @PostMapping("/regist")
+    public R regist(@RequestBody UserRegVO userRegVO){
+        try {
+            memberService.regist(userRegVO);
+        } catch (PhoneException e) {
+            return R.error(BizCodeEnume.PHONE_EXIST_EXCEPTION.getCode(), BizCodeEnume.PHONE_EXIST_EXCEPTION.getMsg());
+        }catch (UsernameException e){
+            return R.error(BizCodeEnume.USER_EXIST_EXCEPTION.getCode(), BizCodeEnume.USER_EXIST_EXCEPTION.getMsg());
+        }catch (EmailException e){
+            return R.error(BizCodeEnume.EMAIL_EXIST_EXCEPTION.getCode(), BizCodeEnume.EMAIL_EXIST_EXCEPTION.getMsg());
+        }
+        return R.ok();
     }
 
     /**

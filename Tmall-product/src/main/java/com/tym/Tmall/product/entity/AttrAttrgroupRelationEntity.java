@@ -2,10 +2,11 @@ package com.tym.Tmall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
-import lombok.Data;
 
 /**
  * 属性&属性分组关联
@@ -23,14 +24,17 @@ public class AttrAttrgroupRelationEntity implements Serializable {
 	 * id
 	 */
 	@TableId
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long id;
 	/**
 	 * 属性id
 	 */
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long attrId;
 	/**
 	 * 属性分组id
 	 */
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long attrGroupId;
 	/**
 	 * 属性组内排序

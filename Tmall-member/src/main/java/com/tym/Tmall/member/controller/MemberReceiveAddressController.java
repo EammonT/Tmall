@@ -1,19 +1,15 @@
 package com.tym.Tmall.member.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.tym.Tmall.member.entity.MemberReceiveAddressEntity;
-import com.tym.Tmall.member.service.MemberReceiveAddressService;
 import com.tym.Tmall.common.utils.PageUtils;
 import com.tym.Tmall.common.utils.R;
+import com.tym.Tmall.member.entity.MemberReceiveAddressEntity;
+import com.tym.Tmall.member.service.MemberReceiveAddressService;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 
 
@@ -27,9 +23,15 @@ import com.tym.Tmall.common.utils.R;
 @RestController
 @RequestMapping("member/memberreceiveaddress")
 public class MemberReceiveAddressController {
-    @Autowired
+    @Resource
     private MemberReceiveAddressService memberReceiveAddressService;
 
+
+    @GetMapping("/{memberId}/address")
+    public List<MemberReceiveAddressEntity> getAddress(@PathVariable("memberId")Long memberId){
+
+        return memberReceiveAddressService.getAddress(memberId);
+    }
     /**
      * 列表
      */

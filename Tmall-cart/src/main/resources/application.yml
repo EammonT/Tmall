@@ -1,0 +1,34 @@
+spring:
+  banner:
+    location: banner.txt
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  application:
+    name: tmall-cart
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  thymeleaf:
+    cache: false
+  redis:
+    host: localhost
+    password: tym917
+  session:
+    store-type: redis
+
+
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto
+
+
+
+server:
+  port: 8007
+logging:
+  level:
+    com.tym.Tmall: debug

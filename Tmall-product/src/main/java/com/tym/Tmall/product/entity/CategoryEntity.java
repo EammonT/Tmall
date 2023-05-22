@@ -2,7 +2,11 @@ package com.tym.Tmall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -24,6 +28,7 @@ public class CategoryEntity implements Serializable {
 	 * 分类id
 	 */
 	@TableId
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long catId;
 	/**
 	 * 分类名称
@@ -32,6 +37,7 @@ public class CategoryEntity implements Serializable {
 	/**
 	 * 父分类id
 	 */
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long parentCid;
 	/**
 	 * 层级
@@ -40,6 +46,7 @@ public class CategoryEntity implements Serializable {
 	/**
 	 * 是否显示[0-不显示，1显示]
 	 */
+	@TableLogic(value = "1",delval = "0")
 	private Integer showStatus;
 	/**
 	 * 排序
@@ -62,6 +69,7 @@ public class CategoryEntity implements Serializable {
 	 * 子分类
 	 */
 	@TableField(exist = false)
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private List<CategoryEntity> children;
 
 }

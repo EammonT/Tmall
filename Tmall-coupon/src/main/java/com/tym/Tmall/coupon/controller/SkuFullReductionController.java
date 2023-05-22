@@ -1,19 +1,16 @@
 package com.tym.Tmall.coupon.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.tym.Tmall.coupon.entity.SkuFullReductionEntity;
-import com.tym.Tmall.coupon.service.SkuFullReductionService;
+import com.tym.Tmall.common.to.SkuReductionTO;
 import com.tym.Tmall.common.utils.PageUtils;
 import com.tym.Tmall.common.utils.R;
+import com.tym.Tmall.coupon.entity.SkuFullReductionEntity;
+import com.tym.Tmall.coupon.service.SkuFullReductionService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.Map;
 
 
 
@@ -26,9 +23,18 @@ import com.tym.Tmall.common.utils.R;
  */
 @RestController
 @RequestMapping("coupon/skufullreduction")
+@Slf4j
 public class SkuFullReductionController {
     @Autowired
     private SkuFullReductionService skuFullReductionService;
+
+    @PostMapping("/saveInfo")
+    //@RequiresPermissions("coupon:skufullreduction:list")
+    public R saveInfo(@RequestBody SkuReductionTO skuReductionTO){
+        skuFullReductionService.saveSkuReduction(skuReductionTO);
+        log.info("saveInfo成功！！");
+        return R.ok();
+    }
 
     /**
      * 列表

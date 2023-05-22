@@ -2,10 +2,12 @@ package com.tym.Tmall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * 商品评价
@@ -23,14 +25,17 @@ public class SpuCommentEntity implements Serializable {
 	 * id
 	 */
 	@TableId
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long id;
 	/**
 	 * sku_id
 	 */
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long skuId;
 	/**
 	 * spu_id
 	 */
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long spuId;
 	/**
 	 * 商品名字

@@ -3,10 +3,62 @@ spring:
     gateway:
       routes:
         #前端项目，/api
+        - id: product_route
+          uri: lb://tmall-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/?(?<segment>.*),/$\{segment}
+
+        - id: member_route
+          uri: lb://tmall-member
+          predicates:
+            - Path=/api/member/**
+          filters:
+            - RewritePath=/api/?(?<segment>.*),/$\{segment}
+
+        - id: ware_route
+          uri: lb://tmall-ware
+          predicates:
+            - Path=/api/ware/**
+          filters:
+            - RewritePath=/api/?(?<segment>.*),/$\{segment}
+
+        - id: ware_route
+          uri: lb://tmall-order
+          predicates:
+            - Path=/api/order/**
+          filters:
+            - RewritePath=/api/?(?<segment>.*),/$\{segment}
+
         - id: admin_route
           uri: lb://renren-fast
           predicates:
             - Path=/api/**
           filters:
             - RewritePath=/api/?(?<segment>.*),/renren-fast/$\{segment}
+
+        - id: tmall_host_route
+          uri: lb://tmall-auth
+          predicates:
+            - Host=auth.tmall.com
+
+        - id: tmall_host_route
+          uri: lb://tmall-cart
+          predicates:
+            - Host=cart.tmall.com
+
+        - id: tmall_host_route
+          uri: lb://tmall-order
+          predicates:
+            - Host=order.tmall.com
+
+        - id: tmall_host_route
+          uri: lb://tmall-product
+          predicates:
+            - Host=**.tmall.com
+
+
+
+
 

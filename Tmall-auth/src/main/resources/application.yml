@@ -1,0 +1,26 @@
+spring:
+  banner:
+    location: banner.txt
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  application:
+    name: tmall-auth
+  redis:
+    host: localhost
+    password: tym917
+  thymeleaf:
+    cache: false
+  session:
+    store-type: redis
+
+
+server:
+  port: 8006
+  servlet:
+    session:
+      timeout: 30m
+logging:
+  level:
+    com.tym.Tmall: debug

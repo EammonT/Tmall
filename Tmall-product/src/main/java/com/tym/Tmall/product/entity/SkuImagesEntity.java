@@ -2,10 +2,11 @@ package com.tym.Tmall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
-import lombok.Data;
 
 /**
  * sku图片
@@ -23,10 +24,12 @@ public class SkuImagesEntity implements Serializable {
 	 * id
 	 */
 	@TableId
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long id;
 	/**
 	 * sku_id
 	 */
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long skuId;
 	/**
 	 * 图片地址

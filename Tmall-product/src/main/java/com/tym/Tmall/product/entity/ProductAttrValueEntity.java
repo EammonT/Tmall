@@ -2,10 +2,11 @@ package com.tym.Tmall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
-import lombok.Data;
 
 /**
  * spu属性值
@@ -23,14 +24,17 @@ public class ProductAttrValueEntity implements Serializable {
 	 * id
 	 */
 	@TableId
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long id;
 	/**
 	 * 商品id
 	 */
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long spuId;
 	/**
 	 * 属性id
 	 */
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long attrId;
 	/**
 	 * 属性名

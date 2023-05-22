@@ -1,19 +1,15 @@
 package com.tym.Tmall.coupon.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.tym.Tmall.coupon.entity.SpuBoundsEntity;
-import com.tym.Tmall.coupon.service.SpuBoundsService;
 import com.tym.Tmall.common.utils.PageUtils;
 import com.tym.Tmall.common.utils.R;
+import com.tym.Tmall.coupon.entity.SpuBoundsEntity;
+import com.tym.Tmall.coupon.service.SpuBoundsService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.Map;
 
 
 
@@ -26,6 +22,7 @@ import com.tym.Tmall.common.utils.R;
  */
 @RestController
 @RequestMapping("coupon/spubounds")
+@Slf4j
 public class SpuBoundsController {
     @Autowired
     private SpuBoundsService spuBoundsService;
@@ -56,11 +53,11 @@ public class SpuBoundsController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     //@RequiresPermissions("coupon:spubounds:save")
     public R save(@RequestBody SpuBoundsEntity spuBounds){
 		spuBoundsService.save(spuBounds);
-
+        log.info("save成功！！");
         return R.ok();
     }
 
